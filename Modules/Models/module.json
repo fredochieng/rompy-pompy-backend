@@ -1,0 +1,13 @@
+{
+    "name": "Models",
+    "alias": "models",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Models\\Providers\\ModelsServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

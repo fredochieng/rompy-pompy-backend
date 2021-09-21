@@ -1,0 +1,13 @@
+{
+    "name": "RompyAPIs",
+    "alias": "rompyapis",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\RompyAPIs\\Providers\\RompyAPIsServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
