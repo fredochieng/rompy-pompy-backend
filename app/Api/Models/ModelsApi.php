@@ -17,7 +17,6 @@ class ModelsApi extends Controller
     {
         $models = DB::table('models')->select(
             'models.*',
-            'models.id as m_user_id',
             'u.id as user_id',
             'u.name',
             'u.email',

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use DB;
+use Modules\Models\Entities\Models;
 use Modules\Subscriptions\Entities\SubPayments;
 use Modules\Subscriptions\Entities\Subscription;
 
@@ -126,12 +127,9 @@ class SubscriptionsController extends Controller
         if (is_numeric($request->sub_id)) {
             $sub_id = $request->sub_id;
             $s_model_id = $request->s_model_id;
-            $sub_amount = $request->sub_amount1;
             $paid_amount = $request->paid_amount1;
             $sub_duration = $request->sub_duration1;
             $sub_end_date = $request->sub_end_date1;
-
-            $sub_pkg_id = $request->sub_pkg_id;
             $sub_start_date = $request->sub_start_date1;
             $payment_method = $request->payment_method_id;
             $balance = $request->balance1;
@@ -181,8 +179,17 @@ class SubscriptionsController extends Controller
                 $subpay->sp_sub_start_date = $sub_start_date;
                 $subpay->sp_sub_end_date = $sub_end_date;
 
-
                 $subpay->save();
+
+                /** Check if model status is inactive
+                 * If yes, activate it
+                 */
+                $model_status = array(
+                    'status' => 2
+                );
+
+                $update_sub = Models::where('m_model_id', $s_model_id)->update($model_status);
+
 
                 DB::commit();
 

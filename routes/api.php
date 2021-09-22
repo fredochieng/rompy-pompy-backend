@@ -23,8 +23,13 @@ Route::post('/v1/login', [App\Api\Controllers\LoginApiController::class, 'login'
 Route::post('/v1/logout', [App\Api\Controllers\LoginApiController::class, 'logout']);
 Route::get('/v1/models/vip', [App\Api\Controllers\ModelsApiController::class, 'get_vip_models']);
 Route::get('/v1/models/regular', [App\Api\Controllers\ModelsApiController::class, 'get_regular_models']);
-Route::get('/v1/model/profile', [App\Api\Controllers\ProfileApiController::class, 'get_model_profile']);
+
+//Route::get('/v1/model/profile', [App\Api\Controllers\ProfileApiController::class, 'get_model_profile']);
+Route::get('/v1/model/profile/{id}', [App\Api\Controllers\ProfileApiController::class, 'get_model_profile']);
+
 Route::post('/v1/model/profile/update', [App\Api\Controllers\ProfileApiController::class, 'model_update_profile']);
+Route::post('/v1/model/profile/add_services', [App\Api\Controllers\ProfileApiController::class, 'add_model_services']);
+Route::post('/v1/model/profile/add_availabilities', [App\Api\Controllers\ProfileApiController::class, 'add_model_availability']);
 Route::get('/v1/model/get-subscriptions', [App\Api\Controllers\ProfileApiController::class, 'get_model_subscriptions']);
 Route::post('/v1/model/change-password', [App\Api\Controllers\ProfileApiController::class, 'change_password']);
 

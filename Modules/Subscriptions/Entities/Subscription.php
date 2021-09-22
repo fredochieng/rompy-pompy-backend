@@ -10,7 +10,8 @@ class Subscription extends Model
     protected $table = 'subscriptions';
 
     /** Get subscriptions */
-    public static function GetSubscriptions(){
+    public static function GetSubscriptions()
+    {
 
         $sub_pkgs = Subscription::select(
             'subscriptions.*',
@@ -29,5 +30,24 @@ class Subscription extends Model
             ->get();
 
         return $sub_pkgs;
+    }
+
+    /** Get active subscriptions for deactivation
+     * Only if the due date for renewal has elapsed
+     */
+
+    public static function GetActiveSubscriptions()
+    {
+
+        $active_subs = Subscription::select(
+            'subscriptions.id as sub_id',
+            'subscriptions.sub_status',
+            'subscriptions.s_model_id',
+            'subscriptions.sub_end_date'
+        )
+            ->where('sub_status', 1)
+            ->get();
+
+        return $active_subs;
     }
 }

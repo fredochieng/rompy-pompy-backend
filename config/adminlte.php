@@ -257,11 +257,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Models',
-                    'url'  => '#',
+                    'url'  => '/models',
                 ],
                 [
                     'text' => 'Add New Model',
-                    'url'  => '#',
+                    'url'  => '/model/add',
                 ],
             ],
         ],
@@ -367,17 +367,17 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
             ],
         ],
         'Pace' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'css',

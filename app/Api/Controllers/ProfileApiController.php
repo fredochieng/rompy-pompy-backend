@@ -15,12 +15,12 @@ use Modules\Models\Entities\Models;
 class ProfileApiController extends Controller
 {
     /** Fetch model profile */
-    public function get_model_profile(Request $request)
+    public function get_model_profile(Request $request, $model_no)
     {
         $model_id = $request->model_id;
 
         if (!empty($model_id) && (is_numeric($model_id))) {
-            $model = ModelsApi::GetModel()->where('m_model_id', $model_id);
+            $model = ModelsApi::GetModel()->where('model_no', $model_no);
 
             return response()->json([
                 'model' => $model, 'status' => 201,
@@ -94,6 +94,44 @@ class ProfileApiController extends Controller
             $message = array("message" => "Invalid request", "status" => 400);
             return response()->json($message, 400);
         }
+    }
+
+    /** Add model services */
+    public function add_model_services(){
+        $model_id = $request->model_id;
+        $service_id = $request->service_id;
+        /** add model services in m_services table */
+        $count = count($service_id);
+
+        for ($i = 0; $i < $count; $i++) {
+            $data = array(
+                'ms_model_id' => $model_id,
+                'ms_service_id' => $service_id[$i]
+            );
+
+            $insertServices[] = $data;
+        }
+
+        ModelServices::insert($insertServices);
+    }
+
+    /** Add model services */
+    public function add_model_availability(){
+        $model_id = $request->model_id;
+        $availability_id = $request->service_id;
+         /** add model availabilities in m_availability table */
+         $count = count($service_id);
+
+         for ($i = 0; $i < $count; $i++) {
+             $data1 = array(
+                 'ma_model_id' => $model_id,
+                 'ma_availability_id' => $availability_id[$i]
+             );
+
+             $insertAvailability[] = $data1;
+         }
+
+         ModelAvailability::insert($insertAvailability);
     }
 
     /** Model change password */

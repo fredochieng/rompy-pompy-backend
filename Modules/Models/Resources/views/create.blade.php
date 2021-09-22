@@ -13,7 +13,7 @@
                 <!-- left column -->
                 <div class="col-md-12">
                     <!-- jquery validation -->
-                    <div class="card card-primary">
+                    <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">Create New Model</h3>
                         </div>
@@ -171,7 +171,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Add New Model</button>
+                                <button type="submit" class="btn btn-info">Add New Model</button>
                             </div>
                         </form>
                     </div>

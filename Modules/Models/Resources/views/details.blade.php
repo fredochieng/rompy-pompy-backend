@@ -50,9 +50,18 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <strong><i class="fas fa-book mr-1"></i> Services & Availability</strong>
+              <strong><i class="fas fa-book mr-1"></i> Services</strong>
               <p class="text-muted">
-               Sex, BSWM, Oral, Massage
+              @foreach ($model_services as $model_service)
+              {{ $model_service->service }},
+              @endforeach
+              </p>
+              <hr>
+              <strong><i class="fas fa-book mr-1"></i> Availability</strong>
+              <p class="text-muted">
+              @foreach ($model_availabilities as $model_availability)
+              {{ $model_availability->availability }},
+              @endforeach
               </p>
               <hr>
 

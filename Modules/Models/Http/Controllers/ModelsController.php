@@ -105,6 +105,10 @@ class ModelsController extends Controller
             toastr()->success('Email and phone already registered!');
             DB::rollBack();
             return back();
+        }elseif($age < 18){
+            toastr()->success('Minimum age should be 18 years');
+            DB::rollBack();
+            return back();
         } else {
 
             /** Generate random password */
@@ -231,8 +235,8 @@ class ModelsController extends Controller
             $data['subs1'] = Subscription::GetSubscriptions()->where('s_model_id', $data['model']->user_id)->first();
             $data['sub_payments'] = SubPayments::GetSubPayments()->where('s_model_id', $data['model']->user_id);
             $data['model_services'] = ModelServices::GetModelServices($data['model']->user_id);
-
-           dd($data['model_services']);
+            $data['model_availabilities'] = ModelAvailability::GetModelAvailabilities($data['model']->user_id);
+            //dd($data['model_availabilities']);
 
 
             /** If model has an active/inactive subscription, no subscription shd be added again

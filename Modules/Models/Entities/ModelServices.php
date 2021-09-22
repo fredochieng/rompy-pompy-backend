@@ -16,7 +16,7 @@ class ModelServices extends Model
             'model_services.*',
             's.service'
         )
-        ->leftJoin('services as s', 'model_services.ms_service_id')
+        ->leftJoin('services as s', 'model_services.ms_service_id', 's.id')
             ->where('ms_model_id', $ms_model_id)
             ->get();
 
