@@ -21,16 +21,15 @@ class ProfileApiController extends Controller
 
         if (!empty($model_no) && (is_numeric($model_no))) {
             $model = ModelsApi::GetModel()->where('model_no', $model_no);
-            if(count($model) > 0){
+            if (count($model) > 0) {
                 return response()->json([
                     'model' => $model, 'status' => 201,
                     'success' => 'Model details retrieved',
                 ]);
-            }else{
+            } else {
                 $message = array("message" => "Invalid request", "status" => 400);
                 return response()->json($message, 400);
             }
-
         } else {
             $message = array("message" => "Invalid request", "status" => 400);
             return response()->json($message, 400);
@@ -102,7 +101,8 @@ class ProfileApiController extends Controller
     }
 
     /** Add model services */
-    public function add_model_services(){
+    public function add_model_services()
+    {
         $model_id = $request->model_id;
         $service_id = $request->service_id;
         /** add model services in m_services table */
@@ -120,23 +120,24 @@ class ProfileApiController extends Controller
         ModelServices::insert($insertServices);
     }
 
-    /** Add model services */
-    public function add_model_availability(){
+    /** Add model availabiltiy */
+    public function add_model_availability()
+    {
         $model_id = $request->model_id;
         $availability_id = $request->service_id;
-         /** add model availabilities in m_availability table */
-         $count = count($service_id);
+        /** add model availabilities in m_availability table */
+        $count = count($service_id);
 
-         for ($i = 0; $i < $count; $i++) {
-             $data1 = array(
-                 'ma_model_id' => $model_id,
-                 'ma_availability_id' => $availability_id[$i]
-             );
+        for ($i = 0; $i < $count; $i++) {
+            $data1 = array(
+                'ma_model_id' => $model_id,
+                'ma_availability_id' => $availability_id[$i]
+            );
 
-             $insertAvailability[] = $data1;
-         }
+            $insertAvailability[] = $data1;
+        }
 
-         ModelAvailability::insert($insertAvailability);
+        ModelAvailability::insert($insertAvailability);
     }
 
     /** Model change password */
@@ -181,12 +182,12 @@ class ProfileApiController extends Controller
     }
 
     /** Get model subscriptions */
-    public function get_model_subscriptions(Request $request)
+    public function get_model_subscriptions(Request $request, $model_no)
     {
-        $model_id = $request->model_id;
+        $model_no = $request->model_no;
 
-        if (!empty($model_id) && is_numeric($model_id)) {
-            $model_subs = ModelsApi::GetModelSubs()->where('user_id', $model_id);
+        if (!empty($model_no) && is_numeric($model_no)) {
+            $model_subs = ModelsApi::GetModelSubs()->where('model_no', $model_no);
 
             return response()->json([
                 'model' => $model_subs, 'status' => 201,
@@ -197,4 +198,38 @@ class ProfileApiController extends Controller
             return response()->json($message, 400);
         }
     }
+
+    /** Get model services */
+    public function get_model_services(Request $request, $model_no)
+    {
+        $model_no = $request->model_no;
+        if (!empty($model_no) && is_numeric($model_no)) {
+            $model_services = ModelsApi::GetModelServicesApi($model_no);
+
+            return response()->json([
+                'model' => $model_services, 'status' => 201,
+                'success' => 'Model subscription packages retrieved',
+            ]);
+        }else{
+            $message = array("message" => "Invalid request", "status" => 400);
+            return response()->json($message, 400);
+        }
+    }
+
+      /** Get model availabiltiies API */
+      public function get_model_availabilities(Request $request, $model_no)
+      {
+          $model_no = $request->model_no;
+          if (!empty($model_no) && is_numeric($model_no)) {
+              $model_ava = ModelsApi::GetModelAvailabilityApi($model_no);
+
+              return response()->json([
+                  'model' => $model_ava, 'status' => 201,
+                  'success' => 'Model availabilties packages retrieved',
+              ]);
+          }else{
+              $message = array("message" => "Invalid request", "status" => 400);
+              return response()->json($message, 400);
+          }
+      }
 }

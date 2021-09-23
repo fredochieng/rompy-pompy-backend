@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Api\Models\ModelApi;
 use Illuminate\Http\Request;
 use DB;
+use Modules\Models\Entities\ModelAvailability;
+use Modules\Models\Entities\ModelServices;
 use Modules\Subscriptions\Entities\Subscription;
 
 class ModelsApi extends Controller
@@ -74,16 +76,51 @@ class ModelsApi extends Controller
             'subscriptions.*',
             'subscriptions.id as sub_id',
             'u.id as user_id',
+            'm.model_no',
             'pm.payment_method',
             'sb.sub_pkg_code',
             'sb.sub_pkg_name',
             'sb.sub_pkg_amount'
         )
             ->leftJoin('users as u', 'subscriptions.s_model_id', 'u.id')
+            ->leftJoin('models as m', 'u.id', 'm.m_model_id')
             ->leftJoin('payment_methods as pm', 'subscriptions.payment_method_id', 'pm.id')
             ->leftJoin('sub_packages as sb', 'subscriptions.sub_pkg_id', 'sb.id')
             ->get();
 
         return $sub_pkgs;
+    }
+
+    /** Get model services for the API */
+    public static function GetModelServicesApi($ms_model_no)
+    {
+        $model_services = ModelServices::select(
+            'model_services.*',
+            'm.model_no',
+            's.service'
+        )
+        ->leftJoin('models as m', 'model_services.ms_model_id', 'm.m_model_id')
+        ->leftJoin('services as s', 'model_services.ms_service_id', 's.id')
+            ->where('m.model_no', $ms_model_no)
+            ->get();
+
+        return $model_services;
+    }
+
+    /** Get model ava for the API */
+    public static function GetModelAvailabilityApi($model_no)
+    {
+
+        $model_availabilities = ModelAvailability::select(
+            'model_availabilities.*',
+            'm.model_no',
+            'a.availability'
+        )
+        ->leftJoin('models as m', 'model_availabilities.ma_model_id', 'm.m_model_id')
+            ->leftJoin('availability as a', 'model_availabilities.ma_availability_id', 'a.id')
+            ->where('m.model_no', $model_no)
+            ->get();
+
+        return $model_availabilities;
     }
 }
