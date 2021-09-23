@@ -17,9 +17,9 @@ class ProfileApiController extends Controller
     /** Fetch model profile */
     public function get_model_profile(Request $request, $model_no)
     {
-        $model_id = $request->model_id;
+        $model_no = $request->model_no;
 
-        if (!empty($model_id) && (is_numeric($model_id))) {
+        if (!empty($model_no) && (is_numeric($model_no))) {
             $model = ModelsApi::GetModel()->where('model_no', $model_no);
             if(count($model) > 0){
                 return response()->json([
