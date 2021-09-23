@@ -21,11 +21,16 @@ class ProfileApiController extends Controller
 
         if (!empty($model_id) && (is_numeric($model_id))) {
             $model = ModelsApi::GetModel()->where('model_no', $model_no);
+            if(count($model) > 0){
+                return response()->json([
+                    'model' => $model, 'status' => 201,
+                    'success' => 'Model details retrieved',
+                ]);
+            }else{
+                $message = array("message" => "Invalid request", "status" => 400);
+                return response()->json($message, 400);
+            }
 
-            return response()->json([
-                'model' => $model, 'status' => 201,
-                'success' => 'Model details retrieved',
-            ]);
         } else {
             $message = array("message" => "Invalid request", "status" => 400);
             return response()->json($message, 400);
@@ -33,12 +38,12 @@ class ProfileApiController extends Controller
     }
 
     /** Model update profile */
-    public function model_update_profile(Request $request)
+    public function model_update_profile(Request $request, $model_no)
     {
 
-        $model_id = $request->model_id;
+        $model_no = $request->model_no;
 
-        if (!empty($model_id) && is_numeric($model_id)) {
+        if (!empty($model_no) && is_numeric($model_no)) {
             $name = ucwords($request->name);
             $email = $request->email;
             $phone_no = $request->phone_no;
@@ -54,7 +59,7 @@ class ProfileApiController extends Controller
             $availability_id = $request->availability_id;
             $about = $request->about;
 
-            $model = ModelsApi::GetModel()->where('m_model_id', $model_id)->first();
+            $model = ModelsApi::GetModel()->where('model_no', $model_no)->first();
 
             DB::beginTransaction();
             try {
@@ -64,7 +69,7 @@ class ProfileApiController extends Controller
                     'email' => empty($email) ? $model->email : $email
                 );
 
-                $update_profile = User::where('id', $model_id)->update($user);
+                $update_profile = User::where('id', $model->user_id)->update($user);
 
                 /** Update model details */
                 $model_details = array(
@@ -78,7 +83,7 @@ class ProfileApiController extends Controller
                     'about' => empty($about) ? $model->about : $about
                 );
 
-                $update_model_details = Models::where('m_model_id', $model_id)->update($model_details);
+                $update_model_details = Models::where('m_model_id', $model->user_id)->update($model_details);
 
                 DB::commit();
                 $message = array("message" => "Profile updated successfully", "status" => 201);

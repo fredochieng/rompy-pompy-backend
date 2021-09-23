@@ -43,7 +43,7 @@ class Models extends Model
 
         $models = Models::select(
             'models.*',
-            'models.id as m_user_id',
+            'models.id as m_id',
             'u.id as user_id',
             'u.name',
             'u.email',

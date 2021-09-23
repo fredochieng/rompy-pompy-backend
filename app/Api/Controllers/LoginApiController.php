@@ -24,7 +24,15 @@ class LoginApiController extends Controller
             if (Auth::attempt($userdata)) {
 
                 /** Get the user role for redirection */
-                $user = User::where('email', '=', $request->input('email'))->first();
+
+                $user = User::select(
+                    'users.*',
+                    'm.model_no'
+                )
+                    ->leftJoin('models as m', 'users.id', 'm.m_model_id')
+                    ->where('users.email', $request->email)
+                    ->first();
+
                 $user_id = $user->id;
 
                 /** Passport API */
@@ -53,7 +61,6 @@ class LoginApiController extends Controller
                             'status' => 201
                         ]
                     );
-
                 }
             } else {
 
@@ -61,7 +68,7 @@ class LoginApiController extends Controller
                 $message = array("message" => "Email or password incorrect", "status" => 400);
                 return response()->json([$message, 400]);
             }
-        }else{
+        } else {
             $message = array("message" => "Email or password cannot be empty", "status" => 400);
             return response()->json($message, 400);
         }
