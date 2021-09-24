@@ -10,7 +10,9 @@ use Illuminate\Http\Client\ResponseSequence;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Hash;
+use Modules\Models\Entities\ModelAvailability;
 use Modules\Models\Entities\Models;
+use Modules\Models\Entities\ModelServices;
 
 class ProfileApiController extends Controller
 {
@@ -101,12 +103,15 @@ class ProfileApiController extends Controller
     }
 
     /** Add model services */
-    public function add_model_services()
+    public function add_model_services(Request $request)
     {
         $model_id = $request->model_id;
         $service_id = $request->service_id;
         /** add model services in m_services table */
         $count = count($service_id);
+
+        /** Remove exisiting service first */
+       // $delete_services = ModelServices::destroy($model_id);
 
         for ($i = 0; $i < $count; $i++) {
             $data = array(
@@ -121,12 +126,15 @@ class ProfileApiController extends Controller
     }
 
     /** Add model availabiltiy */
-    public function add_model_availability()
+    public function add_model_availability(Request $request)
     {
         $model_id = $request->model_id;
         $availability_id = $request->service_id;
         /** add model availabilities in m_availability table */
         $count = count($service_id);
+
+          /** Remove exisiting service first */
+         // $delete_services = ModelAvailability::destroy($model_id);
 
         for ($i = 0; $i < $count; $i++) {
             $data1 = array(
@@ -208,7 +216,7 @@ class ProfileApiController extends Controller
 
             return response()->json([
                 'model' => $model_services, 'status' => 201,
-                'success' => 'Model subscription packages retrieved',
+                'success' => 'Model services retrieved',
             ]);
         }else{
             $message = array("message" => "Invalid request", "status" => 400);
@@ -225,11 +233,28 @@ class ProfileApiController extends Controller
 
               return response()->json([
                   'model' => $model_ava, 'status' => 201,
-                  'success' => 'Model availabilties packages retrieved',
+                  'success' => 'Model availabilties retrieved',
               ]);
           }else{
               $message = array("message" => "Invalid request", "status" => 400);
               return response()->json($message, 400);
           }
       }
+
+      /** Get services that a model is eligble to add */
+    public function get_model_available_services(Request $request, $model_no)
+    {
+        $model_no = $request->model_no;
+        if (!empty($model_no) && is_numeric($model_no)) {
+            $model_services = ModelsApi::GetModelServicesApi($model_no);
+
+            return response()->json([
+                'model' => $model_services, 'status' => 201,
+                'success' => 'Model services retrieved',
+            ]);
+        }else{
+            $message = array("message" => "Invalid request", "status" => 400);
+            return response()->json($message, 400);
+        }
+    }
 }
