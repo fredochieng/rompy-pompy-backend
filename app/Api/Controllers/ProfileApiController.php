@@ -148,13 +148,13 @@ class ProfileApiController extends Controller
         if (!empty($model_id) && is_numeric($model_id)) {
             $current_pass = $request->current_password;
             $new_pass = $request->new_password;
-            $confirm_pass = $request->confirm_password;
+            // $confirm_pass = $request->confirm_password;
             $user = User::find($model_id);
 
             try {
                 if (Hash::check($current_pass, $user->password)) {
 
-                    if ($new_pass == $confirm_pass) {
+                    // if ($new_pass == $confirm_pass) {
                         $user_pass = array(
                             'password' => Hash::make($new_pass)
                         );
@@ -163,11 +163,11 @@ class ProfileApiController extends Controller
 
                         $message = array("message" => "Password changed successfully", "status" => 201);
                         return response()->json($message, 201);
-                    } else {
+                    // } else {
 
-                        $message = array("message" => "Confirm password does not match", "status" => 400);
-                        return response()->json($message, 400);
-                    }
+                    //     $message = array("message" => "Confirm password does not match", "status" => 400);
+                    //     return response()->json($message, 400);
+                   //}
                 } else {
                     $message = array("message" => "Current password is incorrect", "status" => 400);
                     return response()->json($message, 400);

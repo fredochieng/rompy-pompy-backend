@@ -23,6 +23,12 @@ Route::post('/v1/login', [App\Api\Controllers\LoginApiController::class, 'login'
 Route::post('/v1/logout', [App\Api\Controllers\LoginApiController::class, 'logout']);
 Route::get('/v1/models/vip', [App\Api\Controllers\ModelsApiController::class, 'get_vip_models']);
 Route::get('/v1/models/regular', [App\Api\Controllers\ModelsApiController::class, 'get_regular_models']);
+
+/** Get models after filtering city */
+Route::get('/v1/models/vip/city/{city_id}', [App\Api\Controllers\ModelsApiController::class, 'get_city_vip_models']);
+Route::get('/v1/models/regular/city/{city_id}', [App\Api\Controllers\ModelsApiController::class, 'get_city_regular_models']);
+
+/** Get model services and availabilities */
 Route::get('/v1/model/get-services/{model_no}', [App\Api\Controllers\ProfileApiController::class, 'get_model_services']);
 Route::get('/v1/model/get-availabilities/{model_no}', [App\Api\Controllers\ProfileApiController::class, 'get_model_availabilities']);
 

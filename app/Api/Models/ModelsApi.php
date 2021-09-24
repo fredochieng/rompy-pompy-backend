@@ -38,7 +38,7 @@ class ModelsApi extends Controller
     }
 
         /** Get models for website - VIP */
-        public static function GetVIPModels()
+        public static function GetModels()
         {
             $active_models = DB::table('models')->select(
                 'models.*',
@@ -47,6 +47,7 @@ class ModelsApi extends Controller
                 'u.name',
                 'u.email',
                 'co.country_name',
+                'ct.id as c_city_id',
                 'ct.city_name',
                 'et.ethnicity',
                 'bl.build',
