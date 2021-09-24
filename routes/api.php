@@ -26,7 +26,6 @@ Route::get('/v1/models/regular', [App\Api\Controllers\ModelsApiController::class
 Route::get('/v1/model/get-services/{model_no}', [App\Api\Controllers\ProfileApiController::class, 'get_model_services']);
 Route::get('/v1/model/get-availabilities/{model_no}', [App\Api\Controllers\ProfileApiController::class, 'get_model_availabilities']);
 
-//Route::get('/v1/model/profile', [App\Api\Controllers\ProfileApiController::class, 'get_model_profile']);
 Route::get('/v1/model/profile/{model_no}', [App\Api\Controllers\ProfileApiController::class, 'get_model_profile']);
 
 Route::post('/v1/model/profile/update/{model_no}', [App\Api\Controllers\ProfileApiController::class, 'model_update_profile']);
@@ -34,6 +33,10 @@ Route::post('/v1/model/profile/add-services', [App\Api\Controllers\ProfileApiCon
 Route::post('/v1/model/profile/add-availabilities', [App\Api\Controllers\ProfileApiController::class, 'add_model_availability']);
 Route::get('/v1/model/get-subscriptions/{model_no}', [App\Api\Controllers\ProfileApiController::class, 'get_model_subscriptions']);
 Route::post('/v1/model/change-password', [App\Api\Controllers\ProfileApiController::class, 'change_password']);
+
+/** Get services */
+Route::get('/v1/services', [App\Api\Controllers\SelectorApiController::class, 'get_services_api']);
+Route::get('/v1/availabilities', [App\Api\Controllers\SelectorApiController::class, 'get_availabilities_api']);
 
 
 
