@@ -5,6 +5,7 @@ namespace App\Api\Controllers;
 use App\Api\Models\ModelsApi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Response;
 
 class ModelsApiController extends Controller
 {
@@ -12,12 +13,16 @@ class ModelsApiController extends Controller
     /** Get all VIP models */
     public function get_vip_models()
     {
-        $vip_models = ModelsApi::GetModels()->where('sub_pkg_id', 1);
+        $vip_models = ModelsApi::GetModels();
+        //->where('sub_pkg_id', 1);
 
         return response()->json([
-            'model' => $vip_models, 'status' => 201,
-            'success' => 'Model details retrieved',
-        ]);
+            'model' => $vip_models
+        ], 200);
+
+    //     return Response::json([
+    //         'model' => $vip_models
+    //    ], 200);
     }
 
     /** Get all VIP models - city_id filter */

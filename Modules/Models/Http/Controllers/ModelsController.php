@@ -83,6 +83,8 @@ class ModelsController extends Controller
         $about = $request->about;
         $password = Hash::make($request->password);
 
+        dd($service_id);
+
         /** Run validator for both email and phone number */
         $email_validator = Validator::make($request->all(), [
             'email' => ['unique:users'],
