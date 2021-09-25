@@ -13,8 +13,7 @@ class ModelsApiController extends Controller
     /** Get all VIP models */
     public function get_vip_models()
     {
-        $vip_models = ModelsApi::GetModels();
-        //->where('sub_pkg_id', 1);
+        $vip_models = ModelsApi::GetModels()->where('sub_pkg_id', '=', 1)->all();
 
         return response()->json([
             'model' => $vip_models
