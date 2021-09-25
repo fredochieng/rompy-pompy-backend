@@ -5,7 +5,6 @@ namespace App\Api\Controllers;
 use App\Api\Models\ModelsApi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Response;
 
 class ModelsApiController extends Controller
 {
@@ -13,22 +12,19 @@ class ModelsApiController extends Controller
     /** Get all VIP models */
     public function get_vip_models()
     {
-        $vip_models = ModelsApi::GetModels()->where('sub_pkg_id', '=', 1)->all();
+        $vip_models = ModelsApi::GetVIPModels();
 
         return response()->json([
             'model' => $vip_models
         ], 200);
 
-    //     return Response::json([
-    //         'model' => $vip_models
-    //    ], 200);
     }
 
     /** Get all VIP models - city_id filter */
     public function get_city_vip_models(Request $request)
     {
         $city_id = $request->city_id;
-        $city_vip_models = ModelsApi::GetModels()->where('sub_pkg_id', 1)->where('c_city_id', $city_id);
+        $city_vip_models = ModelsApi::GetVIPCityModels($city_id);
 
         if(count($city_vip_models) > 0){
             return response()->json([
@@ -45,7 +41,7 @@ class ModelsApiController extends Controller
     public function get_regular_models()
     {
 
-        $regular_models = ModelsApi::GetModels()->where('sub_pkg_id', 2);
+        $regular_models = ModelsApi::GetRegularModels();
 
         return response()->json([
             'model' => $regular_models, 'status' => 201,

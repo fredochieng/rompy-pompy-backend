@@ -70,6 +70,109 @@ class ModelsApi extends Controller
         return $active_models;
     }
 
+     /** Get models for website - VIP */
+     public static function GetVIPModels()
+     {
+         $VIP_models = DB::table('models')->select(
+             'models.*',
+             'models.id as m_user_id',
+             'u.id as user_id',
+             'u.name',
+             'u.email',
+             'co.country_name',
+             'ct.id as c_city_id',
+             'ct.city_name',
+             'et.ethnicity',
+             'bl.build',
+             'sb.sub_pkg_id',
+             'sb.sub_amount',
+             'sb.sub_start_date',
+             'sb.sub_end_date',
+             'sb.sub_status'
+         )
+             ->leftJoin('users as u', 'models.m_model_id', 'u.id')
+             ->leftJoin('countries as co', 'models.country_id', 'co.id')
+             ->leftJoin('cities as ct', 'models.city_id', 'ct.id')
+             ->leftJoin('ethnicities as et', 'models.ethnicity_id', 'et.id')
+             ->leftJoin('build as bl', 'models.build_id', 'bl.id')
+             ->leftJoin('subscriptions as sb', 'models.m_model_id', 'sb.s_model_id')
+             ->inRandomOrder()
+             ->where('sb.sub_status', 1)
+             ->where('sub_pkg_id', '=', 1)
+             ->get();
+
+         return $VIP_models;
+     }
+
+     /** Get models for website - Regular */
+     public static function GetRegularModels()
+     {
+         $Reg_models = DB::table('models')->select(
+             'models.*',
+             'models.id as m_user_id',
+             'u.id as user_id',
+             'u.name',
+             'u.email',
+             'co.country_name',
+             'ct.id as c_city_id',
+             'ct.city_name',
+             'et.ethnicity',
+             'bl.build',
+             'sb.sub_pkg_id',
+             'sb.sub_amount',
+             'sb.sub_start_date',
+             'sb.sub_end_date',
+             'sb.sub_status'
+         )
+             ->leftJoin('users as u', 'models.m_model_id', 'u.id')
+             ->leftJoin('countries as co', 'models.country_id', 'co.id')
+             ->leftJoin('cities as ct', 'models.city_id', 'ct.id')
+             ->leftJoin('ethnicities as et', 'models.ethnicity_id', 'et.id')
+             ->leftJoin('build as bl', 'models.build_id', 'bl.id')
+             ->leftJoin('subscriptions as sb', 'models.m_model_id', 'sb.s_model_id')
+             ->inRandomOrder()
+             ->where('sb.sub_status', 1)
+             ->where('sub_pkg_id', '=', 2)
+             ->get();
+
+         return $Reg_models;
+     }
+
+     /** Get models for website - Regular */
+     public static function GetVIPCityModels($city_id)
+     {
+         $vip_city_models = DB::table('models')->select(
+             'models.*',
+             'models.id as m_user_id',
+             'u.id as user_id',
+             'u.name',
+             'u.email',
+             'co.country_name',
+             'ct.id as c_city_id',
+             'ct.city_name',
+             'et.ethnicity',
+             'bl.build',
+             'sb.sub_pkg_id',
+             'sb.sub_amount',
+             'sb.sub_start_date',
+             'sb.sub_end_date',
+             'sb.sub_status'
+         )
+             ->leftJoin('users as u', 'models.m_model_id', 'u.id')
+             ->leftJoin('countries as co', 'models.country_id', 'co.id')
+             ->leftJoin('cities as ct', 'models.city_id', 'ct.id')
+             ->leftJoin('ethnicities as et', 'models.ethnicity_id', 'et.id')
+             ->leftJoin('build as bl', 'models.build_id', 'bl.id')
+             ->leftJoin('subscriptions as sb', 'models.m_model_id', 'sb.s_model_id')
+             ->inRandomOrder()
+             ->where('sb.sub_status', 1)
+             ->where('sub_pkg_id', '=', 1)
+             ->where('sub_pkg_id', 1)->where('ct.id', $city_id)
+             ->get();
+
+         return $vip_city_models;
+     }
+
 
     /** Get model subscriptions */
     public static function GetModelSubs()
