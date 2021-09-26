@@ -36,6 +36,7 @@ Route::get('/v1/model/profile/{model_no}', [App\Api\Controllers\ProfileApiContro
 
 Route::post('/v1/model/profile/update/{model_no}', [App\Api\Controllers\ProfileApiController::class, 'model_update_profile']);
 Route::post('/v1/model/profile/add-picture', [App\Api\Controllers\ProfileApiController::class, 'model_add_pictures']);
+Route::get('/v1/model/profile/get-pictures/{model_id}', [App\Api\Controllers\ProfileApiController::class, 'model_get_pictures']);
 Route::post('/v1/model/profile/add-services', [App\Api\Controllers\ProfileApiController::class, 'add_model_services']);
 Route::post('/v1/model/profile/add-availabilities', [App\Api\Controllers\ProfileApiController::class, 'add_model_availability']);
 Route::get('/v1/model/get-subscriptions/{model_no}', [App\Api\Controllers\ProfileApiController::class, 'get_model_subscriptions']);

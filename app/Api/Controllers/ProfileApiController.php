@@ -123,6 +123,22 @@ class ProfileApiController extends Controller
         return response()->json($message, 201);
     }
 
+    /** Get model pictures */
+    public function model_get_pictures(Request $request, $model_id){
+
+        $model_id = $request->model_id;
+        $model_pics = ModelsApi::GetModelPictures($model_id);
+
+        if(count($model_pics) > 0){
+            return response()->json($model_pics, 201);
+        }else{
+            $message = array("message" => "No pictures found", "status" => 400);
+            return response()->json($message, 400);
+        }
+
+
+    }
+
     /** Add model services */
     public function add_model_services(Request $request)
     {

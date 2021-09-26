@@ -244,4 +244,15 @@ class ModelsApi extends Controller
 
         return $model_availabilities;
     }
+
+    /** Get model pictures */
+    public static function GetModelPictures($model_id){
+        $model_pics = DB::table('model_pictures')->select(
+            DB::raw('model_pictures.mp_model_id'),
+            DB::raw('model_pictures.model_pic_url')
+        )->where('model_pictures.mp_model_id', $model_id)
+        ->get();
+
+        return $model_pics;
+    }
 }
