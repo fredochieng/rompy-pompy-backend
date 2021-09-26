@@ -102,6 +102,27 @@ class ProfileApiController extends Controller
         }
     }
 
+    /** Model add images */
+    public function model_add_pictures(){
+
+        $model_id = $request->model_id;
+         /** Process the image */
+         $file = $request->file('picture');
+         $file_name = Models::GeneratePassword(30).$file->getClientOriginalName();
+         $file->move('uploads/model_pictures', $file_name);
+         $picture_url = 'uploads/model_pictures/' . $file_name;
+
+         $pic_data = array(
+             'mp_model_id' => $model_id,
+             'model_pic_url' => $picture_url
+         );
+
+         $save_pic = DB::table('model_pictures')->insert($pic_data);
+
+         $message = array("message" => "Picture uploaded successfully", "status" => 201);
+        return response()->json($message, 201);
+    }
+
     /** Add model services */
     public function add_model_services(Request $request)
     {
@@ -123,6 +144,9 @@ class ProfileApiController extends Controller
         }
 
         ModelServices::insert($insertServices);
+
+        $message = array("message" => "Services added successfully", "status" => 201);
+        return response()->json($message, 201);
     }
 
     /** Add model availabiltiy */
@@ -146,6 +170,9 @@ class ProfileApiController extends Controller
         }
 
         ModelAvailability::insert($insertAvailability);
+
+        $message = array("message" => "Availability added successfully", "status" => 201);
+        return response()->json($message, 201);
     }
 
     /** Model change password */
