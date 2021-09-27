@@ -45,6 +45,7 @@ Route::post('/v1/model/change-password', [App\Api\Controllers\ProfileApiControll
 /** Get services */
 Route::get('/v1/services', [App\Api\Controllers\SelectorApiController::class, 'get_services_api']);
 Route::get('/v1/availabilities', [App\Api\Controllers\SelectorApiController::class, 'get_availabilities_api']);
+Route::get('/v1/cities', [App\Api\Controllers\SelectorApiController::class, 'get_cities_api']);
 
 
 

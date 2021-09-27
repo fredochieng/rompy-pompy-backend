@@ -25,4 +25,13 @@ class SelectorApiController extends Controller
             'availabilities' => $availabilities, 'status' => 201
         ]);
     }
+
+    /** Get cities api */
+    public function get_cities_api(){
+        $cities = Selector::GetCities();
+
+        return response()->json([
+            'cities' => $cities, 'status' => 201
+        ]);
+    }
 }
