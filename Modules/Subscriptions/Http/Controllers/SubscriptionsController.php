@@ -98,7 +98,7 @@ class SubscriptionsController extends Controller
                 $subpay = new SubPayments();
                 $subpay->sp_sub_id = $saved_sub_id;
                 $subpay->sp_payment_method_id = $payment_method;
-                $subpay->sp_tran_no = $sp_trans_no;
+                $subpay->sp_tran_no = strtoupper($sp_trans_no);
                 $subpay->sp_trans_code = $sub_trans_code;
                 $subpay->sp_amount = $paid_amount;
                 $subpay->sp_sub_start_date = $sub_start_date;
@@ -173,7 +173,7 @@ class SubscriptionsController extends Controller
                 $subpay = new SubPayments();
                 $subpay->sp_sub_id = $sub_id;
                 $subpay->sp_payment_method_id = $payment_method;
-                $subpay->sp_tran_no = $sp_trans_no;
+                $subpay->sp_tran_no = strtoupper($sp_trans_no);
                 $subpay->sp_trans_code = $sub_trans_code;
                 $subpay->sp_amount = $paid_amount;
                 $subpay->sp_sub_start_date = $sub_start_date;

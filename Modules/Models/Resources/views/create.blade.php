@@ -3,7 +3,7 @@
 @section('title', 'Add New Model')
 
 @section('content_header')
-    <h1>New Model</h1>
+    <h1>Rompy Pumpy | New Model</h1>
 @stop
 
 @section('content')

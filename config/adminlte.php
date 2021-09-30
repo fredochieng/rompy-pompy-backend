@@ -265,25 +265,25 @@ return [
                 ],
             ],
         ],
-        ['header' => 'account_settings'],
-        [
-            'text'       => 'Profile',
-            'icon_color' => 'red',
-            'url'        => '#',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text'       => 'Change Password',
-            'icon_color' => 'yellow',
-            'icon' => 'fas fa-fw fa-lock',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'Sign Out',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-            'icon' => 'fas fa-fw fa-arrow-alt-circle-left'
-        ],
+        // ['header' => 'account_settings'],
+        // [
+        //     'text'       => 'Profile',
+        //     'icon_color' => 'red',
+        //     'url'        => '#',
+        //     'icon' => 'fas fa-fw fa-user',
+        // ],
+        // [
+        //     'text'       => 'Change Password',
+        //     'icon_color' => 'yellow',
+        //     'icon' => 'fas fa-fw fa-lock',
+        //     'url'        => '#',
+        // ],
+        // [
+        //     'text'       => 'Sign Out',
+        //     'icon_color' => 'cyan',
+        //     'url'        => '#',
+        //     'icon' => 'fas fa-fw fa-arrow-alt-circle-left'
+        // ],
     ],
 
     /*
