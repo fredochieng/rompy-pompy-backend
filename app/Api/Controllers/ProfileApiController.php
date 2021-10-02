@@ -24,9 +24,12 @@ class ProfileApiController extends Controller
         if (!empty($model_no) && (is_numeric($model_no))) {
             $model = ModelsApi::GetModel()->where('model_no', $model_no);
             if (count($model) > 0) {
-                return response()->json(
-                    'model' => $model, 'status' => 201
-                );
+                //return response()->json(
+                    //'model' => $model, 'status' => 201
+                //);
+
+                 $model = array("model" => $model, "status" => 201);
+                 return response()->json($model, 201);
             } else {
                 $message = array("message" => "Invalid request", "status" => 400);
                 return response()->json($message, 400);
