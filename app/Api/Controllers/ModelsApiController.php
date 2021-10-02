@@ -43,10 +43,15 @@ class ModelsApiController extends Controller
 
         $regular_models = ModelsApi::GetRegularModels();
 
-        return response()->json([
-            'model' => $regular_models, 'status' => 201,
-            'success' => 'Model details retrieved',
-        ]);
+        if(count($regular_models) > 0){
+            return response()->json([
+                'model' => $regular_models, 'status' => 201,
+                'success' => 'Model details retrieved',
+            ]);
+        }else{
+            $message = array("message" => "No models found", "status" => 400);
+            return response()->json($message, 400);
+        }
     }
 
     /** Get all regular models - city_id filter */
