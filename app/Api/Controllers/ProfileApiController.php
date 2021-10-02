@@ -33,7 +33,7 @@ class ProfileApiController extends Controller
             //} else {
                // $message = array("message" => "Invalid request", "status" => 400);
                // return response()->json($message, 400);
-            }
+           // }
         } else {
             $message = array("message" => "Invalid request", "status" => 400);
             return response()->json($message, 400);
