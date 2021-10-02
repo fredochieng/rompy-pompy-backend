@@ -22,7 +22,7 @@ class ProfileApiController extends Controller
         $model_no = $request->model_no;
 
         if (!empty($model_no) && (is_numeric($model_no))) {
-            $model = ModelsApi::GetModel()->where('model_no', $model_no);
+            $model = ModelsApi::GetModel()->where('model_no', $model_no)->first();
             if (count($model) > 0) {
                 //return response()->json(
                     //'model' => $model, 'status' => 201
