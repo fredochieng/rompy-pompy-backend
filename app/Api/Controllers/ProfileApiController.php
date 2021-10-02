@@ -28,7 +28,7 @@ class ProfileApiController extends Controller
                     //'model' => $model, 'status' => 201
                 //);
 
-                 $model = array("model" => $model, "status" => 201);
+                // $model = array("model" => $model, "status" => 201);
                  return response()->json($model, 201);
             } else {
                 $message = array("message" => "Invalid request", "status" => 400);
