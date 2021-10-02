@@ -17,7 +17,7 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
     'allow_methods' => ['*'],
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://rompypumpy.com'],
     'allow_headers' => ['*'],
 
     'expose_headers' => [],
